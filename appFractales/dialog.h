@@ -35,7 +35,8 @@ private slots:
 private:
     Ui::Dialog *ui;
     QTimer *timerDragon, *timerArabesco, *timerKoch,
-            *timerSierpinski, *timerMalthus;
+            *timerSierpinski, *timerMalthus, *timerHenon,
+            *timerMandelbrot;
     void paintEvent(QPaintEvent *e);
     //Fractal Dragon
     void dragon();//EN ESTA APP SERIA LA FUNCION MAIN() DE LAS COPIAS
@@ -76,6 +77,16 @@ private:
     void malthus(int li,QPainter *canvas);
     int i, j, k, l, contador, lim, lsm;
     double pobAnt, pobNueva, x, y, razon;
+
+    //Curva de Henon
+    void henon(QPainter *canvas);
+    double escalaX, escalaY, despX, despY;
+
+    //Mandelbrot
+    void mandelbrot(QPainter *canvas);
+
+    int maxX, maxY, limite, imb, jmb, pasos, terminar;
+    double pasoX, pasoY, posX, posY, origX, origY, dimX, dimY, interX, interY, TempX;
 
     //void paintEvent(QPaintEvent *evento);
 };

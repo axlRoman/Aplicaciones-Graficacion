@@ -33,6 +33,14 @@ Dialog::Dialog(QWidget *parent)
     timerMalthus = new QTimer();
     connect(timerMalthus,SIGNAL(timeout()), this, SLOT(repaint()));
 
+    //Henon
+    timerHenon = new QTimer();
+    connect(timerHenon,SIGNAL(timeout()), this, SLOT(repaint()));
+
+    //Mandelbrot
+    timerMandelbrot = new QTimer();
+    connect(timerMandelbrot,SIGNAL(timeout()), this, SLOT(repaint()));
+
     //QColor color;
 }
 
@@ -93,6 +101,26 @@ void Dialog::keyPressEvent(QKeyEvent *evento)
         }
         if(evento->key() == Qt::Key_D){
             timerMalthus->stop();
+        }
+    }
+    if(ui->comboBox->currentIndex() == 5){
+        if(evento->key() == Qt::Key_I){
+            band = true;
+            timerHenon->start(100);
+            update();
+        }
+        if(evento->key() == Qt::Key_D){
+            timerHenon->stop();
+        }
+    }
+    if(ui->comboBox->currentIndex() == 6){
+        if(evento->key() == Qt::Key_I){
+            band = true;
+            timerMandelbrot->start(100);
+            update();
+        }
+        if(evento->key() == Qt::Key_D){
+            timerMandelbrot->stop();
         }
     }
 
@@ -183,7 +211,7 @@ void Dialog::paintEvent(QPaintEvent *e)
         if(band){
             if(ns<=7){
                 sierpinski(ns,canvas);
-                Sleep(200);
+                Sleep(100);
                 ns++;
             }
             else
@@ -192,7 +220,7 @@ void Dialog::paintEvent(QPaintEvent *e)
         if(!band){
             ns--;
             sierpinski(ns,canvas);
-            Sleep(200);
+            Sleep(100);
             if(ns == 0)
                 band = true;
         }
@@ -219,6 +247,23 @@ void Dialog::paintEvent(QPaintEvent *e)
             if(lim == 0)
                 band = true;
         }
+    }
+    if(ui->comboBox->currentIndex() == 5){
+        QFont fuenteTexto = canvas->font();
+        fuenteTexto.setPointSize(fuenteTexto.pointSize() * 2);
+        canvas->setFont(fuenteTexto);
+        canvas->drawText(5,25,"Curva de Henon");
+
+        henon(canvas);
+    }
+
+    if(ui->comboBox->currentIndex() == 6){
+        QFont fuenteTexto = canvas->font();
+        fuenteTexto.setPointSize(fuenteTexto.pointSize() * 2);
+        canvas->setFont(fuenteTexto);
+        canvas->drawText(5,25,"Francal de Mandelbrot");
+
+        mandelbrot(canvas);
     }
 
 
@@ -660,6 +705,71 @@ void Dialog::malthus(int li, QPainter *canvas)
     }
 }
 //Fin de Fractal de Malthus
+//Funcion para la curva de Henon
+
+void Dialog::henon(QPainter *canvas)
+{
+    escalaX =1;
+    escalaY =1;
+    despX=0;
+    despY=0;
+    int i, posX, posY;
+    double xAnt, xNuevo, yAnt, yNuevo;
+
+    xAnt = xNuevo = yAnt = yNuevo = 0;
+    for(i=1; i<= 20000; i++){
+        xNuevo = yAnt + 1 - (1.4 * xAnt * xAnt);
+        yNuevo = 0.3 * xAnt;
+        posX = (xNuevo * this->width()/3 * escalaX) + this->width()/2 + despX;
+        posY = (yNuevo * this->height() * escalaY) + this->height()/2 + despY;
+
+        if((posX >= 0) && (posX <= this->width()) &&
+                (posY >= 0) && (posY <= this->height()))
+            canvas->drawPoint(posX,posY);
+        yAnt = yNuevo;
+        xAnt = xNuevo;
+    }
+
+}
+//Fin de la curva de Henon
+//Funcion de Mandelbrot
+void Dialog::mandelbrot(QPainter *canvas)
+{
+
+    maxX = this->width();
+    maxY = this->height();
+    limite = 100;
+
+    origX = -2.0;
+    origY = -1.25;
+    dimX = 0.5;
+    dimY = 1.25;
+
+    pasoX = (dimX - origX) / maxX;
+    pasoY = (dimY - origY) / maxY;
+    for(i=0; i<=maxX; i++){
+        for(j=0; j<=maxY; j++){
+            posX = origX + i * pasoX;
+            posY = origY + j * pasoY;
+            interX=0.0;
+            interY=0.0;
+            terminar = pasos=0;
+
+            while(!terminar){
+                TempX = (interX * interX) - (interY * interY) + posX;
+                interY = 2 * (interX * interY) +posY;
+                interX = TempX;
+                pasos++;
+                if(hypot(fabs(interX),fabs(interY))>=2.0)
+                    terminar++;
+                if(pasos>=limite)
+                    terminar++;
+            }
+            if(pasos<limite)
+                canvas->drawPoint(i,j);
+        }
+    }
+}
 
 void Dialog::on_pushButton_2_clicked()
 {
@@ -687,6 +797,14 @@ void Dialog::on_pushButton_2_clicked()
         timerMalthus->start(100);
         this->repaint();
     }
+    if(ui->comboBox->currentIndex() == 5){
+        timerHenon->start(100);
+        this->repaint();
+    }
+    if(ui->comboBox->currentIndex() == 6){
+        timerMandelbrot->start(100);
+        this->repaint();
+    }
 }
 
 
@@ -699,6 +817,8 @@ void Dialog::on_pushButton_clicked()
     timerKoch->stop();
     timerSierpinski->stop();
     timerMalthus->stop();
+    timerHenon->stop();
+    timerMandelbrot->stop();
 }
 
 

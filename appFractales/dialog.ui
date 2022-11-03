@@ -56,6 +56,16 @@
          <string>Fractal de Malthus</string>
         </property>
        </item>
+       <item>
+        <property name="text">
+         <string>Curva de Henon</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>Maldelbrot</string>
+        </property>
+       </item>
       </widget>
      </item>
      <item>
