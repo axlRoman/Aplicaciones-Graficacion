@@ -682,6 +682,7 @@ void Dialog::malthus(int li, QPainter *canvas)
     pobAnt = pobNueva = 0.0;
     razon = 2.3;
     y=0;
+    canvas->setPen(color);
 
     for(j = 1; j <= li; j++){
         for(k = 1; k <=li; k++){
@@ -716,6 +717,7 @@ void Dialog::henon(QPainter *canvas)
     int i, posX, posY;
     double xAnt, xNuevo, yAnt, yNuevo;
 
+    canvas->setPen(color);
     xAnt = xNuevo = yAnt = yNuevo = 0;
     for(i=1; i<= 20000; i++){
         xNuevo = yAnt + 1 - (1.4 * xAnt * xAnt);
@@ -745,6 +747,7 @@ void Dialog::mandelbrot(QPainter *canvas)
     dimX = 0.5;
     dimY = 1.25;
 
+    canvas->setPen(color);
     pasoX = (dimX - origX) / maxX;
     pasoY = (dimY - origY) / maxY;
     for(i=0; i<=maxX; i++){
