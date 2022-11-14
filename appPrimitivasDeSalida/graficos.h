@@ -25,6 +25,9 @@ public:
 
     void espiral1(QPainter *canvas , QColor color, double factor);
     void espiral2(QPainter *canvas , QColor color, double theta, double r);
+
+    void cuadrado(QPainter *canvas , QColor color, int x1, int y, int x2);
+    void triangulo(QPainter *canvas, QColor color, int x1,int x2, int y);
 };
 
 #endif // GRAFICOS_H

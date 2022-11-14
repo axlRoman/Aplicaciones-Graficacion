@@ -94,8 +94,8 @@ void Graficos::circuloPolar(int xc, int yc, int rad, QPainter *canvas)
 
 void Graficos::espiral1(QPainter *canvas, QColor color, double factor)
 {
-    int xc = canvas->window().width()/2;
-    int yc = canvas->window().height()/2-100;
+    int xc = canvas->window().width()/2+135;
+    int yc = canvas->window().height()/2;
     int radio = 5;
     const double dosPi = M_PI * 2;
     //cont double dos_pi = 3.14159 * 2;
@@ -140,8 +140,8 @@ void Graficos::espiral1(QPainter *canvas, QColor color, double factor)
 
 void Graficos::espiral2(QPainter *canvas, QColor color, double theta, double r)
 {
-    int xc = canvas->window().width()/2;
-    int yc =  canvas->window().height()/2 - 100;
+    int xc = canvas->window().width()/2+135;
+    int yc = canvas->window().height()/2;
     float radio = r;
     canvas->setPen(color);
     double th, x, y, xt, yt;
@@ -151,16 +151,49 @@ void Graficos::espiral2(QPainter *canvas, QColor color, double theta, double r)
     xt = xc + x;
     yt = yc + y;
 
-    while(radio < 200){
+    while(radio < 200){       
         th += theta;
         radio += r;
         x = radio * cos(th);
-        y = radio * sin(th);        
+        y = radio * sin(th);
         lineaDDA(round(xt), round(yt), round(xc + x), round(yc + y), canvas, color);
         xt = xc + x;
         yt = yc + y;
     }
 }//FIN DEL ESPIRAL2
+
+void Graficos::cuadrado(QPainter *canvas, QColor color, int x1, int y, int x2)
+{
+    int lado = 0;
+    if(x1>x2)
+        lado = x1-x2+y;
+    else
+        lado = x2-x1+y;
+    lineaDDA(x1,y,x2,y,canvas, color);
+    lineaDDA((x1), (lado), (x2), (lado), canvas, color);
+    lineaDDA(x1, (y), x1, lado, canvas, color);
+    lineaDDA(x2, (y), x2, lado, canvas, color);
+}
+
+void Graficos::triangulo(QPainter *canvas, QColor color, int x1, int x2, int y)
+{
+    int altura = 0;
+    int centro = 0;
+    if(x1<x2){
+        altura = x1-x2+y;
+        centro = (x1+x2)/2;
+    }
+    else{
+        altura = x2-x1+y;
+        centro = (x2+x1)/2;
+    }
+
+    lineaDDA(x1,y,x2,y,canvas,color);
+    lineaDDA(x1,y,centro,altura, canvas, color);
+    lineaDDA(x2,y,centro,altura, canvas, color);
+}
+
+
 
 
 

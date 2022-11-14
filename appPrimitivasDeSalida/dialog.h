@@ -36,13 +36,21 @@ private slots:
 
     void on_radioButton3_clicked();
 
-    void on_doubleSpinBox_valueChanged(double arg1);
-
     void on_pushButton_6_clicked();
 
-    void on_doubleSpinBox_2_valueChanged(double arg1);
+    void on_sbFactorEspiral1_valueChanged(double arg1);
 
-    void on_doubleSpinBox_3_valueChanged(double arg1);
+    void on_sbTetaEspiral2_valueChanged(double arg1);
+
+    void on_sbRadioEspiral2_valueChanged(double arg1);
+
+    void on_comboBox_currentTextChanged(const QString &arg1);
+
+    void on_comboBox_currentIndexChanged(int index);
+
+    void on_pushButton_7_clicked();
+
+    void on_pushButton_8_clicked();
 
 private:
     Ui::Dialog *ui;
@@ -58,9 +66,13 @@ private:
     bool circuloPolar;
     bool espiral1;
     bool espiral2;
+    bool cuadrado;
+    bool triangulo;
 
     double factorEspiral1;
     double thetaEspiral2, radioEspiral2;
+
+    QTimer *timerEspiral;
 
 protected:
     void mousePressEvent(QMouseEvent *event);
