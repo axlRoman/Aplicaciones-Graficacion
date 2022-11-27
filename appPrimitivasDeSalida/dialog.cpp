@@ -39,7 +39,7 @@ void Dialog::paintEvent(QPaintEvent *e)
     else if(espiral2)
         graficos->espiral2(Canvas, color, thetaEspiral2, radioEspiral2);    
     else if(cuadrado)
-        graficos->cuadrado(Canvas, color, x1,y1,x2);
+        graficos->cuadrado(Canvas, color, x1,y1,x2, y2);
     else if(triangulo)
         graficos->triangulo(Canvas, color, x1, x2, y1);
 
@@ -241,6 +241,7 @@ void Dialog::on_pushButton_7_clicked()
     x1 = ui->lineX1->text().toInt();
     y1 = ui->lineY1->text().toInt();
     x2 = ui->lineX2->text().toInt();
+    //y2 = ui->lineY2->text().toInt();
 
     //update();
     cuadrado = true;

@@ -162,17 +162,29 @@ void Graficos::espiral2(QPainter *canvas, QColor color, double theta, double r)
     }
 }//FIN DEL ESPIRAL2
 
-void Graficos::cuadrado(QPainter *canvas, QColor color, int x1, int y, int x2)
+void Graficos::cuadrado(QPainter *canvas, QColor color, int x1, int y, int x2, int y2)
 {
     int lado = 0;
     if(x1>x2)
         lado = x1-x2+y;
     else
         lado = x2-x1+y;
+
     lineaDDA(x1,y,x2,y,canvas, color);
     lineaDDA((x1), (lado), (x2), (lado), canvas, color);
     lineaDDA(x1, (y), x1, lado, canvas, color);
     lineaDDA(x2, (y), x2, lado, canvas, color);
+
+    /*if(y>y2){
+
+    }
+    else{
+        lineaDDA(x1,y,x2,y,canvas, color);
+        lineaDDA((x1), (lado), (x2), (lado), canvas, color);
+        lineaDDA(x1, (y2), x1, lado, canvas, color);
+        lineaDDA(x2, (y2), x2, lado, canvas, color);
+    }*/
+
 }
 
 void Graficos::triangulo(QPainter *canvas, QColor color, int x1, int x2, int y)
