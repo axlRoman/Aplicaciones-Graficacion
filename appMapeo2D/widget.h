@@ -34,6 +34,14 @@ private slots:
 
     void on_pushButton_2_clicked();
 
+    void on_ZoomMas_clicked();
+
+    void on_ZoomMenos_clicked();
+
+    void on_sbZoomMas_valueChanged(int arg1);
+
+    void on_sbZoomMenos_valueChanged(int arg1);
+
 private:
     Ui::Widget *ui;
 
@@ -44,11 +52,14 @@ private:
     float FigTrian[11][3];
     float FigTrianAux[11][3];
 
+    float Picachu[15][3];
+    float PicachuAux[15][3];
+
     int ancho;
     int centroX, centroY;
     bool dibujoOrientacionNormal;
     bool dibujoMapeado;
 
-
+    int zoom;
 };
 #endif // WIDGET_H
